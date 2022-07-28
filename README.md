@@ -23,3 +23,7 @@ The Discogs API requires authentication for some requests. Using authentication 
 ## Acknowledgements
 
 I took some inspiration from Scott McAllister's [go-discogs](https://github.com/stmcallister/go-discogs) project, particularly for testing the API client with a mock server.
+
+## Usage
+
+See the example program in `cmd/main.go`. I will expand on this soon.
