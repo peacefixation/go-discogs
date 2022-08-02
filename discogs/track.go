@@ -6,5 +6,6 @@ type Track struct {
 	Position     string          `json:"position"`
 	Type         string          `json:"type_"` // TODO: why the trailing underscore?
 	Title        string          `json:"title"`
+	Artists      []ReleaseArtist `json:"artists"`
 	ExtraArtists []ReleaseArtist `json:"extraartists"`
 }

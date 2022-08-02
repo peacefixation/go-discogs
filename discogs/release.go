@@ -39,7 +39,7 @@ type Release struct {
 	Released          string          `json:"released"`
 	ReleasedFormatted string          `json:"released_formatted"`
 	ResourceURL       string          `json:"resource_url"`
-	Series            []string        `json:"series"` // TODO: array of what?
+	Series            []ReleaseSeries `json:"series"`
 	Status            string          `json:"status"`
 	Styles            []string        `json:"styles"`
 	Tracklist         []Track         `json:"tracklist"`
@@ -121,6 +121,16 @@ type ReleaseLabel struct {
 	EntityTypeName string `json:"entity_type_name"`
 	ID             int    `json:"id"`
 	Name           string `json:"name"`
+	ResourceURL    string `json:"resource_url"`
+	ThumbnailURL   string `json:"thumbnail_url"`
+}
+
+type ReleaseSeries struct {
+	Name           string `json:"name"`
+	CatNo          string `json:"catno"`
+	EntityType     string `json:"entity_type"`
+	EntityTypeName string `json:"entity_type_name"`
+	ID             int    `json:"id"`
 	ResourceURL    string `json:"resource_url"`
 	ThumbnailURL   string `json:"thumbnail_url"`
 }
