@@ -14,7 +14,7 @@ func main() {
 	apiToken := "your api token"
 	userAgent := "GoDiscogs/0.0.1 +http://yournamehere.net"
 
-	client := discogs.NewClient(discogs.BaseURL, userAgent, auth.NewToken(apiToken))
+	client := discogs.NewClient(userAgent, auth.NewToken(apiToken))
 
 	resp, err := client.Search(context.Background(), "Nirvana", nil)
 	if err != nil {

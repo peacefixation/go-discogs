@@ -18,7 +18,7 @@ func Test_GetIdentity(t *testing.T) {
 		_, _ = w.Write([]byte(`{"id": 0, "username": "Username", "resource_url": "https://api.discogs.com/users/Username", "consumer_name": "Username"}`))
 	})
 
-	client := NewClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
+	client := newTestClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
 
 	identity, err := client.GetIdentity(context.Background())
 	if err != nil {

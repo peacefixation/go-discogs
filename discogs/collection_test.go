@@ -18,7 +18,7 @@ func Test_GetCollectionFolders(t *testing.T) {
 		_, _ = w.Write([]byte(`{"folders": [{"id": 0, "name": "All", "count": 245, "resource_url": "https://api.discogs.com/users/Username/collection/folders/0"}, {"id": 1, "name": "Uncategorized", "count": 245, "resource_url": "https://api.discogs.com/users/Username/collection/folders/1"}]}`))
 	})
 
-	client := NewClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
+	client := newTestClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
 
 	resp, err := client.GetCollectionFolders(context.Background(), "Username")
 	if err != nil {
@@ -56,7 +56,7 @@ func Test_CreateCollectionFolder(t *testing.T) {
 		_, _ = w.Write([]byte(`{"id": 4739258, "name": "test-folder", "count": 0, "resource_url": "https://api.discogs.com/users/Username/collection/folders/4739258"}`))
 	})
 
-	client := NewClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
+	client := newTestClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
 
 	resp, err := client.CreateCollectionFolder(context.Background(), "Username", "test-folder")
 	if err != nil {
@@ -83,7 +83,7 @@ func Test_GetCollectionFolder(t *testing.T) {
 		_, _ = w.Write([]byte(`{"id": 4739258, "name": "test-folder", "count": 0, "resource_url": "https://api.discogs.com/users/Username/collection/folders/4739258"}`))
 	})
 
-	client := NewClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
+	client := newTestClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
 
 	resp, err := client.GetCollectionFolder(context.Background(), "Username", 4739258)
 	if err != nil {
@@ -110,7 +110,7 @@ func Test_UpdateCollectionFolder(t *testing.T) {
 		_, _ = w.Write([]byte(`{"id": 4739258, "name": "test-folder-2", "count": 0, "resource_url": "https://api.discogs.com/users/Username/collection/folders/4739258"}`))
 	})
 
-	client := NewClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
+	client := newTestClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
 
 	resp, err := client.UpdateCollectionFolder(context.Background(), "Username", 4739258, "test-folder-2")
 	if err != nil {
@@ -137,7 +137,7 @@ func Test_DeleteCollectionFolder(t *testing.T) {
 		w.WriteHeader(http.StatusNoContent)
 	})
 
-	client := NewClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
+	client := newTestClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
 
 	err := client.DeleteCollectionFolder(context.Background(), "Username", 4739258)
 	if err != nil {
@@ -155,7 +155,7 @@ func Test_GetCollectionItemsByRelease(t *testing.T) {
 		_, _ = w.Write([]byte(`{"pagination": {"page": 1, "pages": 1, "per_page": 50, "items": 1, "urls": {}}, "releases": [{"id": 20078449, "instance_id": 1081693136, "date_added": "2022-07-17T22:30:56-07:00", "rating": 0, "basic_information": {"id": 20078449, "master_id": 2299618, "master_url": "https://api.discogs.com/masters/2299618", "resource_url": "https://api.discogs.com/releases/20078449", "thumb": "https://i.discogs.com/6W0-_QHC8jWSMj7LGWm9l5QJVtVCGth-kFqaoakq9lA/rs:fit/g:sm/q:40/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIwMDc4/NDQ5LTE2MzA1MjE3/NTAtNzIzMy5qcGVn.jpeg", "cover_image": "https://i.discogs.com/ofHIh1Ty3p9kiPagzEs598mxJOuaWcnOr3kQYMcb-dA/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIwMDc4/NDQ5LTE2MzA1MjE3/NTAtNzIzMy5qcGVn.jpeg", "title": "Realism EP", "year": 2021, "formats": [{"name": "Vinyl", "qty": "1", "text": "White Marble", "descriptions": ["12\"", "33 \u2153 RPM", "EP", "Repress"]}], "labels": [{"name": "Reality Used To Be A Friend Of Mine", "catno": "REALITY 20182", "entity_type": "1", "entity_type_name": "Label", "id": 1365217, "resource_url": "https://api.discogs.com/labels/1365217"}], "artists": [{"name": "Rising Sun (7)", "anv": "", "join": "", "role": "", "tracks": "", "id": 1167655, "resource_url": "https://api.discogs.com/artists/1167655"}], "genres": ["Electronic"], "styles": ["Abstract", "Ambient", "Breakbeat", "Chillwave", "Deep House"]}, "folder_id": 1}]}`))
 	})
 
-	client := NewClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
+	client := newTestClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
 
 	resp, err := client.GetCollectionItemsByRelease(context.Background(), "Username", 20078449)
 	if err != nil {
@@ -248,7 +248,7 @@ func Test_GetCollectionItemsByFolder(t *testing.T) {
 		_, _ = w.Write([]byte(`{"pagination":{"page":1,"pages":1,"per_page":50,"items":1,"urls":{}},"releases":[{"id":54524,"instance_id":519662456,"date_added":"2020-10-28T09:37:50-07:00","rating":0,"basic_information":{"id":54524,"master_id":36105,"master_url":"https://api.discogs.com/masters/36105","resource_url":"https://api.discogs.com/releases/54524","thumb":"https://i.discogs.com/M9b2jLZlZrWkv2SMzIvN_z-FcZD_jlX9m8HuWK-oonw/rs:fit/g:sm/q:40/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTU0NTI0/LTE1MzY4OTQxMjUt/Njg0Mi5qcGVn.jpeg","cover_image":"https://i.discogs.com/7AFzapz17kuF_XZcOnI7CxqWgDiBMwHJC-rkU2DeJHE/rs:fit/g:sm/q:90/h:599/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTU0NTI0/LTE1MzY4OTQxMjUt/Njg0Mi5qcGVn.jpeg","title":"Purple","year":1997,"formats":[{"name":"Vinyl","qty":"1","descriptions":["12\"","45 RPM","Promo","White Label"]}],"labels":[{"name":"4AD","catno":"GUS 7","entity_type":"1","entity_type_name":"Label","id":634,"resource_url":"https://api.discogs.com/labels/634"}],"artists":[{"name":"GusGus","anv":"Gus Gus","join":"","role":"","tracks":"","id":231513,"resource_url":"https://api.discogs.com/artists/231513"}],"genres": ["Electronic"],"styles": ["Breaks","Downtempo","Ambient"]},"folder_id": 1,"notes":[{"field_id": 1,"value":"Very Good Plus (VG+)"},{"field_id":2,"value":"Generic"}]}]}`))
 	})
 
-	client := NewClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
+	client := newTestClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
 
 	resp, err := client.GetCollectionItemsByFolder(context.Background(), "Username", 0, nil)
 	if err != nil {
@@ -349,7 +349,7 @@ func Test_AddReleaseToCollectionFolder(t *testing.T) {
 		_, _ = w.Write([]byte(`{"id": 213658, "instance_id": 1089887351, "rating": 0, "basic_information": {"id": 213658, "master_id": 36506, "master_url": "https://api.discogs.com/masters/36506", "resource_url": "https://api.discogs.com/releases/213658", "cover_image": "https://i.discogs.com/rWJlcOi9Haq_2CcMPws9cvHyq209o9Lj-RwN-vlU6wE/rs:fit/g:sm/q:90/h:600/w:593/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIxMzY1/OC0xMjAyMjg3NDk4/LmpwZWc.jpeg", "thumb": "https://i.discogs.com/fdcbq5t-Q1O5NlZu2m2cwRKl7v3-kjR2wCOnx9b43xY/rs:fit/g:sm/q:40/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIxMzY1/OC0xMjAyMjg3NDk4/LmpwZWc.jpeg", "title": "Robot.O.Chan", "year": 2004, "formats": [{"name": "CD", "qty": "1", "descriptions": ["Album"]}], "labels": [{"name": "Twisted Records", "catno": "TWSCD25", "entity_type": "1", "entity_type_name": "Label", "id": 3336, "resource_url": "https://api.discogs.com/labels/3336"}], "artists": [{"name": "Prometheus", "anv": "", "join": "", "role": "", "tracks": "", "id": 19870, "resource_url": "https://api.discogs.com/artists/19870"}]}, "date_added": "2022-07-28T04:28:27-07:00", "folder_id": 1, "resource_url": "https://api.discogs.com/users/Username/collection/folders/1/releases/213658?instance_id=1089887351"}`))
 	})
 
-	client := NewClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
+	client := newTestClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
 
 	resp, err := client.AddReleaseToCollectionFolder(context.Background(), "Username", 1, 213658)
 	if err != nil {
@@ -418,7 +418,7 @@ func Test_DeleteReleaseFromCollectionFolder(t *testing.T) {
 		w.WriteHeader(http.StatusNoContent)
 	})
 
-	client := NewClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
+	client := newTestClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
 
 	err := client.DeleteReleaseFromCollectionFolder(context.Background(), "Username", 1, 213658, 1089857009)
 	if err != nil {
@@ -436,7 +436,7 @@ func Test_ListCustomFields(t *testing.T) {
 		_, _ = w.Write([]byte(`{"fields": [{"id": 1, "name": "Media Condition", "type": "dropdown", "position": 1, "public": false, "options": ["Mint (M)", "Near Mint (NM or M-)", "Very Good Plus (VG+)", "Very Good (VG)", "Good Plus (G+)", "Good (G)", "Fair (F)", "Poor (P)"]}, {"id": 2, "name": "Sleeve Condition", "type": "dropdown", "position": 2, "public": false, "options": ["Generic", "No Cover", "Mint (M)", "Near Mint (NM or M-)", "Very Good Plus (VG+)", "Very Good (VG)", "Good Plus (G+)", "Good (G)", "Fair (F)", "Poor (P)"]}, {"id": 3, "name": "Notes", "type": "textarea", "position": 3, "public": false, "lines": 3}]}`))
 	})
 
-	client := NewClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
+	client := newTestClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
 
 	resp, err := client.ListCustomFields(context.Background(), "Username")
 	if err != nil {
@@ -505,7 +505,7 @@ func Test_EditField(t *testing.T) {
 		w.WriteHeader(http.StatusNoContent)
 	})
 
-	client := NewClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
+	client := newTestClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
 
 	err := client.EditFieldsInstance(context.Background(), "Username", 1, 213658, 1089887351, 1, "Very Good (VG)")
 	if err != nil {
@@ -523,7 +523,7 @@ func Test_GetCollectionValue(t *testing.T) {
 		_, _ = w.Write([]byte(`{"minimum": "A$1,597.46", "median": "A$3,506.77", "maximum": "A$7,505.54"}`))
 	})
 
-	client := NewClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
+	client := newTestClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
 
 	resp, err := client.GetCollectionValue(context.Background(), "Username")
 	if err != nil {

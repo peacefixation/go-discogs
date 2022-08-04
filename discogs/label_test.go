@@ -18,7 +18,7 @@ func Test_GetLabel(t *testing.T) {
 		_, _ = w.Write([]byte(`{"id": 1611434, "name": "Forgotten World", "resource_url": "https://api.discogs.com/labels/1611434", "uri": "https://www.discogs.com/label/1611434-Forgotten-World", "releases_url": "https://api.discogs.com/labels/1611434/releases", "parent_label": {"id": 1447907, "name": "All Possible Worlds", "resource_url": "https://api.discogs.com/labels/1447907"}, "data_quality": "Needs Vote"}`))
 	})
 
-	client := NewClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
+	client := newTestClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
 
 	label, err := client.GetLabel(context.Background(), 1611434)
 	if err != nil {
@@ -52,7 +52,7 @@ func Test_GetLabelReleases(t *testing.T) {
 		_, _ = w.Write([]byte(`{"pagination": {"page": 1, "pages": 1, "per_page": 50, "items": 2, "urls": {}}, "releases": [{"status": "Accepted", "format": "12\"", "catno": "fw1", "thumb": "https://i.discogs.com/8FsOyncx8agIs2Kq2xvIL0orEwWdyDeWEpc9Rh5hNC8/rs:fit/g:sm/q:40/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEzMzU4/NzM3LTE1NTI3MzUw/NjctNzUwMy5qcGVn.jpeg", "resource_url": "https://api.discogs.com/releases/13358737", "title": "Forgotten World 1", "id": 13358737, "year": 2019, "artist": "Golden Baby", "stats": {"community": {"in_wantlist": 616, "in_collection": 1051}, "user": {"in_wantlist": 0, "in_collection": 0}}}, {"status": "Accepted", "format": "12\"", "catno": "fw2", "thumb": "https://i.discogs.com/aoS-Gcc7iYEWaIK3WXrGGWS_bfpOuKiD106B9ZCPh_U/rs:fit/g:sm/q:40/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEzMzU4/ODIxLTE1NTI3MzUy/MTAtNzAyNS5qcGVn.jpeg", "resource_url": "https://api.discogs.com/releases/13358821", "title": "Forgotten World 2", "id": 13358821, "year": 2019, "artist": "Golden Baby", "stats": {"community": {"in_wantlist": 527, "in_collection": 1046}, "user": {"in_wantlist": 0, "in_collection": 0}}}]}`))
 	})
 
-	client := NewClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
+	client := newTestClient(server.URL, testUserAgent, auth.NewToken(testAuthToken))
 
 	releases, err := client.GetLabelReleases(context.Background(), 1611434, nil)
 	if err != nil {
